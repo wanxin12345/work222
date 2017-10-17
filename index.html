@@ -1,0 +1,269 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>10-11.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<style type="text/css">
+div{
+width: 100px;
+height: 100px;
+background: red;
+color: #ccc;
+}
+div,next {
+	width: 100px;
+	height: 100px;
+	background: #666;
+	float: left;
+	margin-right: 10px;
+}
+#box {
+	width: 100px;
+	height: 100px;
+	background: blue;
+}
+.div_class{
+    width: 100px;
+	height: 100px;
+	background: green;
+	float: left;
+	margin: 10px;
+
+}
+.div_ckass1{
+	width: 100px;
+	height: 100px;
+	background: red;
+	float: left;
+	margin-right: 10px;
+}
+/*选项卡*/
+#box1,#box2{
+	width: 300px;
+	height: 300px;
+	margin: 100px auto;
+	border: #000 2px solid;
+	font-family: "微软雅黑";
+}
+#box1 a,#box2 a {
+	display: block;
+	float: left;
+	width: 100px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	background: green;
+	color: #fff;
+	text-decoration:none;
+}
+
+#box1 div,#box2 div{
+	width: 300px;
+	height: 260px;
+	line-height:260px;
+	text-align: center;
+	font-size:40px;
+	display: none;
+}
+
+#box1 a.active,#box2 a.active {
+	background: blue;
+}
+.cctive{
+background: blue;
+}
+</style>
+<script type="text/javascript">
+window.onload=function(){
+    /*tagname获取元素*/
+	var Div=document.getElementsByTagName('div');
+	Div[0].onclick=function(){
+		alert(this.innerHTML);
+	}
+	
+	/*while循环1*/
+	var aDiv = document.getElementsByTagName('div');
+	var i =0; //初始条件;
+	while(i < aDiv.length){//判断条件;
+		aDiv[i].onclick = function(){
+			alert('1');	
+		}
+		i++;//自增操作
+		/*alert(i);*/
+	}
+	
+	/*测试*/
+	var A=document.getElementsByTagName("a");
+	for(var i=0;i<A.length;i++){
+		A[i].onclick=function(){
+			alert(this.aa);
+		}
+	}
+	
+	/*点和[]的区别*/
+	var oBox = document.getElementById('box');
+
+	var a = 'width';
+	oBox.onclick = function(){
+		this.style[a] = '300px';
+		/*this.style.height="300px";*/
+	}
+	
+	
+	/*点击div变红*/
+	var bDiv = document.getElementsByClassName('div_class');
+	alert("绿色div共有"+bDiv.length+"个");
+	for(var i = 0; i < bDiv.length; i++){
+		bDiv[i].onclick = function(){
+			for(var i = 0; i < bDiv.length; i++){
+				bDiv[i].style.background = 'green';	
+			}/*for循环是为了点击单个显示*/
+			this.style.background = 'red';			
+		}	
+	}
+	
+	/*关于循环里面的i值的问题*/
+	var cDiv=document.getElementsByClassName('div_ckass1');
+	alert("红色div共有"+cDiv.length+"个");
+	for(i=0;i<cDiv.length;i++){
+		cDiv[i].onclick=function(){
+			alert(i)
+		}
+	}
+	
+	
+	/*选项卡*/
+	var dBox = document.getElementById('box1');
+	var dBtn = dBox.getElementsByClassName('bctive');
+	var dDiv = dBox.getElementsByTagName('div');
+	for(var j = 0; j < dBtn.length; j++){
+		dBtn[j].index = j;/*也可用if判断进行循环*/
+		dBtn[j].onclick = function(){
+			for(var j = 0; j < dBtn.length; j++){
+				alert(j)
+				dBtn[j].className = 'cctive';	
+			/*	dDiv[j].style.display = 'none';	*/
+			}
+			this.className = '';
+			/*dDiv[this.index].style.display = 'block';*/
+		}	
+
+	}
+	
+}
+/*传参*/
+function show(a,b){
+	alert(a+b);
+}
+show(2,3);
+/*选项卡
+ * 循环里面套循环，两个循环的变量名不能一样;但是如果循环里面加事件，事件里面在加循环，两个循环的变量名可以一样;
+ */
+	window.onload = function(){
+	 
+	var aBox = document.getElementById('box1');
+	var aBtn = aBox.getElementsByTagName('a');
+	var aDiv = aBox.getElementsByTagName('div');
+	
+	for(var i = 0; i < aBtn.length; i++){
+		aBtn[i].index = i;
+	    aBtn[i].onclick = function(){
+			for(var i = 0; i < aBtn.length; i++){
+				
+				aBtn[i].className = '';	
+				aDiv[i].style.display = 'none';	
+			}
+			this.className = 'active';
+			aDiv[this.index].style.display = 'block';
+		}	
+		/*for(var j=0;j<aDiv.length;j++){
+			
+			if(i==j){
+				
+				aBtn[j].className = '';	
+				aDiv[j].style.display = 'none';	
+				}else{
+				this.className = 'active';
+			    aDiv[j].style.display = 'block';
+				}
+			}
+		}*/
+	}
+}
+/*当通过鼠标点击选中元素或通过 tab 键定位到元素时，该元素就会获得焦点*/
+window.onload = function(){
+	tab('box1','onclick');
+	tab('box2','onmouseover');
+}
+function tab(id,sEv){
+	var oBox = document.getElementById(id);
+	var aBtn = oBox.getElementsByTagName('a');
+	var aDiv = oBox.getElementsByTagName('div');
+	
+	for(var i = 0; i < aBtn.length; i++){
+		aBtn[i].index = i;
+		aBtn[i][sEv] = function(){
+			for(var i = 0; i < aBtn.length; i++){
+				aBtn[i].className = '';	
+				aDiv[i].style.display = 'none';	
+			}
+			this.className = 'active';
+			aDiv[this.index].style.display = 'block';
+		}	
+	}
+}
+
+	
+
+</script>
+  </head>
+  
+  <body>
+   <div>我是一个div</div>
+   <div></div>
+   <div></div>
+   <div></div><br><br><br><br><br><br>
+   <a href="javascript:void(0)" aa="0">asd</a>
+   <a href="javascript:void(0)" aa="1">asd</a>
+   <a href="javascript:void(0)" aa="2">asd</a><br>
+   <div id="box"></div><br><br><br><br><br><br>
+   <div class="div_class"></div>
+   <div class="div_class"></div>
+   <div class="div_class"></div>
+   <div class="div_class"></div>
+   <div class="div_class"></div>
+   <div class="div_class"></div>
+   <div class="div_class"></div>
+   <div class="div_class"></div><br><br><br><br><br><br><br>
+   <div class="div_ckass1"></div>
+   <div class="div_ckass1"></div>
+   <div class="div_ckass1"></div><br><br><br><br><br><br><br>
+   <div id="box1">
+	<a href="javascript:void(0)"  class="active">西瓜</a>
+	<a href="javascript:void(0)" >南瓜</a>
+	<a href="javascript:void(0)" >冬瓜</a>
+    <div style="display:block;">西瓜</div>
+    <div>南瓜</div>
+    <div>冬瓜</div>
+   </div>
+   <div id="box2">
+	<a href="javascript:;" class="active">西瓜</a>
+	<a href="javascript:;" >南瓜</a>
+	<a href="javascript:;" >冬瓜</a>
+    <div style="display:block;">西瓜</div>
+    <div>南瓜</div>
+    <div>冬瓜</div>
+</div>
+   
+
+
+   
+   
+   
+  </body>
+</html>
